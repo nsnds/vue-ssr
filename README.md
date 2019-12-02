@@ -29,4 +29,23 @@
 * Server Bundle: 后端收到请求后，首屏应该渲染哪个页面，把渲染的 html 传给浏览器。
 * Client Bundle: 页面相关的 js 代码，与返回的 html 进行激活成 SPA。
 
+<font color="red">需要注意:</font> 在构建服务端包时，需要保证是单独的入口 chunk。
+```js
+// 方式一：
+module.exports = {
+  chainWebpack: config => {
+    config.optimization.delete('splitChunks')
+  }
+}
+
+// 方法二：
+module.exports = {
+  configureWebpack: () => ({
+    optimization: {
+      splitChunks: TARGET_NODE ? false : undefined
+    }
+  })
+}
+```
+
 
